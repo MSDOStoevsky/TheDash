@@ -1,4 +1,11 @@
-
+a, .button.button-outline, button.button-outline, button.button-clear, .button.button-clear{ 
+    color: red;
+}
+.button, button
+{
+    border-color: red;
+    background-color: red;
+}
 .wrapper {
     display:block;
     overflow:hidden;
@@ -29,7 +36,6 @@
     width: 100%;
     z-index: 1;
 }
-
 .navigation .navigation-link, .navigation .navigation-title, .navigation .title {
     display: inline;
     font-size: 1.6rem;
@@ -122,4 +128,9 @@
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+.options 
+{
+    display: flex;
+    justify-content: space-evenly;
 }

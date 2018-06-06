@@ -1,5 +1,2 @@
 <?
-
     session_start();
-
-    
