@@ -3,8 +3,14 @@
     const NO_ERROR        = 0;
     const USERNAME_ERROR  = 1;
     const PASSWORD_ERROR  = 2;
-
+    const AUTH_ERROR  = 3;
     session_start();
+
+
+    function checkAuth() {
+        return isset($_SESSION['username']);
+        //TODO: check remember me cookie
+    }
     
     function attempt_login($un, $pw)
     {
@@ -19,7 +25,7 @@
         else if( $ret == 1 ) return true;
     }
     
-    function Redirect($url, $error = NO_ERROR, $permanent = false)
+    function redirect($url, $error = NO_ERROR, $permanent = false)
     {
         if($error != NO_ERROR)
             $_SESSION['error'] = $error;

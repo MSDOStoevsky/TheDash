@@ -1,5 +1,4 @@
 <?php
-
 class DB extends SQLite3 {
 
     function __construct() {
@@ -16,4 +15,3 @@ class DB extends SQLite3 {
         else return 0;
     }
 }
-

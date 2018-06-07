@@ -1,9 +1,9 @@
 <?php
     require_once("src/auth.php");
     require_once("src/api.php");
+    if(!checkAuth()) Redirect('./', AUTH_ERROR); //TODO error message not displaying
     $storage = list_storage();
     $hosts = list_hosts();
-
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@
                         <a class="navigation-link dropbtn" href=""><?php echo strtoupper($_SESSION['username']); ?> <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
                         <a href="#">My Account</a>
-                        <a id="logout-btn" href="logout.php">Log Out <i class="fa fa-sign-out"></i></a>
+                        <a id="logout-btn" href="logout.php"><i class="fa fa-sign-out"></i> Log Out</a>
                         </div>
                     </div>
                 </li>

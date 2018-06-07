@@ -1,7 +1,7 @@
 <?php
     require_once("auth.php");
-    const STORAGE_PATH = 'C:\Program Files (x86)\Ampps\www\TheDash\storage\\'; //'/usr/share/objects/';
-    const HOSTS_PATH = 'C:\Program Files (x86)\Ampps\www\TheDash\hosts\\'; //'/var/www/';
+    const STORAGE_PATH = '/usr/share/objects/';
+    const HOSTS_PATH = '/var/www/';
 
     /* handler */
 
