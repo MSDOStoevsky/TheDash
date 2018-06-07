@@ -1,12 +1,15 @@
-<!--<?php
+<?php
     require_once("src/auth.php");
     require_once("src/api.php");
-?>-->
+    $storage = list_storage();
+    $hosts = list_hosts();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Your Console</title>
+    <title>Your Dashboard</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
@@ -20,14 +23,14 @@
     <main class="wrapper">
     <nav class="navigation">
         <div class="container">
-            <div class="navigation-title">The Dash</div>
+            <div class="navigation-title">Super Dash</div>
             <ul class="navigation-list float-right">
                 <li class="navigation-item">
                     <div class="dropdown">
-                        <a class="navigation-link dropbtn" href=""><?php echo strtoupper($_SESSION['username']); ?><i class="fa fa-caret-down"></i></a>
+                        <a class="navigation-link dropbtn" href=""><?php echo strtoupper($_SESSION['username']); ?> <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
                         <a href="#">My Account</a>
-                        <a id="logout-btn" href="">Log Out <i class="fa fa-sign-out"></i></a>
+                        <a id="logout-btn" href="logout.php">Log Out <i class="fa fa-sign-out"></i></a>
                         </div>
                     </div>
                 </li>
@@ -55,13 +58,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <a href="">example.png</a>
-                    </td>
-                    <td>520</td>
-                    <td>Image</td>
-                </tr>
+                <?php
+                    foreach ( $storage as $item )
+                    {
+                        echo "
+                        <tr>
+                            <td>
+                                <a href=''>".$item[0]."</a>
+                            </td>
+                            <td>".$item[1]."</td>
+                            <td>".$item[2]."</td>
+                        </tr>";
+                    }
+                ?>
             </tbody>
         </table>
     </section>
@@ -78,6 +87,7 @@
                 <tr>
                     <th>Program</th>
                     <th>Status</th>
+                    <th>Port</th>
                     <th>Usage</th>
                 </tr>
             </thead>
@@ -94,6 +104,7 @@
                             else echo "Error";
                         ?>
                     </td>
+                    <td>555</td>
                     <td>52 kb/s</td>
                 </tr>
             </tbody>
@@ -105,6 +116,32 @@
     </footer>
     </main>
 
+    <div id="storageops-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="close fa fa-close"></i>
+                <h2>Operations</h2>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                <?php
+                    foreach ( $storage as $item )
+                    {
+                        echo "
+                        <div class='row'>
+                            <div class='column'>".$item[0]."</div>
+                            <div class='column'>".$item[1]."</div>
+                            <div class='column'><input name='' type='checkbox'></div>
+                        </div>";
+                    }
+                ?>
+                <input class="button button-outline" value="Delete" type="button" name="delete-storage">
+                <input class="button button-outline" value="Share" type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="upload-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,12 +149,10 @@
                 <h2>Choose File</h2>
             </div>
             <div class="modal-body">
-                <form action="api.php" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <fieldset>
-                        <label for="file-field">File</label>
-                        <input name="file-field" id="file-field" type="file">
-                        
-                        <input class="button-primary" value="Upload" type="submit">
+                        <input name="file-field" id="file-field" type="file"><br>
+                        <input class="button-primary" value="Upload" type="submit" name="upload-storage">
                     </fieldset>
                 </form>
             </div>
@@ -138,6 +173,31 @@
         </div>
     </div>
 
+    <div id="hostops-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="close fa fa-close"></i>
+                <h2>Operations</h2>
+            </div>
+            <div class="modal-body">
+                <form action="src/api.php" method="POST">
+                <?php
+                    foreach ( $hosts as $item )
+                    {
+                        echo "
+                        <div class='row'>
+                            <div class='column'>".$item[0]."</div>
+                            <div class='column'>".$item[1]."</div>
+                            <div class='column'><input name='' type='checkbox'></div>
+                        </div>";
+                    }
+                ?>
+                <input class="button button-outline" value="Delete" type="button" name="delete-host">
+                <input class="button button-outline" value="Share" type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="host-modal" class="modal">
         <div class="modal-content">
@@ -146,17 +206,17 @@
                 <h2>Host New File</h2>
             </div>
             <div class="modal-body">
-                <form action="api.php" method="POST">
+                <form action="<?php create_host($_SESSION['username'], $_POST) ?>" method="POST">
                     <fieldset>
                         <label for="file-field">Name</label>
-                        <input placeholder="e.g., Terraria" name="host-name-field" id="host-name-field" type="text">
+                        <input placeholder="e.g., Terraria" name="host-name-field" id="host-name-field" type="text" required>
 
                         <label for="host-dir-field">Path</label>
-                        <input name="host-dir-field" id="host-dir-field" type="file">
+                        <input name="host-dir-field" id="host-dir-field" type="file" required>
 
 
                         <label for="host-port-field">Port</label>
-                        <input placeholder="e.g., 80" name="host-port-field" id="host-port-field" type="number">
+                        <input placeholder="e.g., 80" name="host-port-field" id="host-port-field" type="number" min="1" required>
                         
                         <input class="button-primary" value="Host" type="submit">
                     </fieldset>
@@ -167,6 +227,10 @@
 
     <script>
 
+        // ops modal
+        $("#ops-btn").on("click", function() {
+            $("#storageops-modal").css("display","block");
+        });
         // upload modal
         $("#upload-btn").on("click", function() {
             $("#upload-modal").css("display","block");

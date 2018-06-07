@@ -1,0 +1,105 @@
+html {
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Bitter', serif;
+    color: #1E1E1E;
+}
+p, ul, li{
+    margin: 0;
+    font-size: 16px;
+    color: #1E1E1E;
+}
+a{
+    color: #3F51B5;
+}
+.wrapper {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.wrapper > .container {
+    display: block;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+.wrapper .container {
+    max-width: 80rem;
+}
+.container {
+    margin: 0 auto;
+    max-width: 112.0rem;
+    padding: 0 2.0rem;
+    position: relative;
+}
+.shadowbox{
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.nav {
+    margin-bottom: 2rem;
+    background: #3F51B5;
+    color: #f4f5f6;
+    box-shadow: 0 1px 5px rgba(12,13,14,0.15), 0 0 0 transparent, 0 0 0 transparent, 0 0 0 transparent;
+    display: block;
+    left: 0;
+    max-width: 100%;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    vertical-align: middle;
+}
+.nav .container {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.nav .nav-list {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+.nav .nav-item {
+    display: inline-block;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    position: relative;
+}
+.nav .nav-link, .nav .nav-title, .nav .title {
+    display: inline;
+    font-size: 1.5rem;
+    padding: 0;
+    text-decoration: none;
+    color: #f4f5f6;
+}
+.nav .nav-title, .nav .title {
+    color: #fff;
+    line-height: 5rem;
+    font-size: 2rem;
+    margin-right: 2rem;
+}
+.nav .nav-link:hover {
+    color: #303F9F; 
+}
+.nav .nav-item .active {
+    color: #222;
+}
+@media (max-width: 28rem) {
+	.nav {
+        text-align: center;
+    }
+    .nav .nav-item {
+        line-height: 3rem;
+    }
+    .nav .nav-title, .nav .title {
+        margin-right: 0;
+    }
+}

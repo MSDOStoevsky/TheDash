@@ -1,10 +1,30 @@
 a, .button.button-outline, button.button-outline, button.button-clear, .button.button-clear{ 
-    color: red;
+    color: #ff0000;
 }
-.button, button
-{
-    border-color: red;
-    background-color: red;
+.button, button, input[type="button"], input[type="reset"], input[type="submit"] {
+    border-color: #ff0000;
+    background-color: #ff0000;
+}
+.button.button-outline, button.button-outline, input[type="button"].button-outline, input[type="reset"].button-outline, input[type="submit"].button-outline {
+    color: #ff0000;
+}
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="color"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input:not([type]):focus,
+textarea:focus,
+select:focus {
+    border-color: #ff0000;
 }
 .wrapper {
     display:block;
@@ -59,28 +79,43 @@ a, .button.button-outline, button.button-outline, button.button-clear, .button.b
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content/Box */
 .modal-content {
+    position: relative;
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 70%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
 }
 
-/* The Close Button */
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -95,12 +130,11 @@ a, .button.button-outline, button.button-outline, button.button-clear, .button.b
     cursor: pointer;
 }
 
-/* The dropdown container */
+/* dropdown in nav */
 .dropdown {
   overflow: hidden;
 }
 
-/* Dropdown content (hidden by default) */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -110,7 +144,6 @@ a, .button.button-outline, button.button-outline, button.button-clear, .button.b
   z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
   float: none;
   color: black;
@@ -119,18 +152,15 @@ a, .button.button-outline, button.button-outline, button.button-clear, .button.b
   display: block;
   text-align: left;
 }
-
-/* Add a grey background color to dropdown links on hover */
 .dropdown-content a:hover {
   background-color: #ddd;
 }
-
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.options 
+.options
 {
     display: flex;
     justify-content: space-evenly;
 }
+
