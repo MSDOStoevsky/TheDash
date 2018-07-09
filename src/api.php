@@ -1,76 +1,97 @@
 <?php
     require_once("auth.php");
-    const STORAGE_PATH = '/usr/share/objects/';
-    const HOSTS_PATH = '/var/www/';
+    const STORAGE_PATH = 'C:\Program Files (x86)\Ampps\www\TheDash\storage\\'; //'/usr/share/objects/';
+    const HOSTS_PATH = 'C:\Program Files (x86)\Ampps\www\TheDash\hosts\\'; //'/var/www/';
 
     /* handler */
-
     if(isset($_POST['upload-storage'])) upload_to_storage($_SESSION['username']);
     else if(isset($_POST['delete-storage'])) delete_from_storage($_SESSION['username']);
 
+    function account_info($un)
+    {
+        $user_dir = STORAGE_PATH.$un.'\\';
+        
+    }
+
     function upload_to_storage($un)
     {
+        $user_dir = STORAGE_PATH.$un.'\\';
+        $target_file = $user_dir.basename($_FILES["file-field"]["name"]);
         
-        $target_file = STORAGE_PATH.basename($_FILES["file-field"]["name"]);
-        $uploadOk = 1;
-        
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        $check = getimagesize($_FILES["file-field"]["tmp_name"]);
-        if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }
-
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-        } else {
+        if (is_writable(realpath($user_dir))) { 
             if (move_uploaded_file($_FILES["file-field"]["tmp_name"], $target_file)) {
-                echo "The file ". basename( $_FILES["file-field"]["name"]). " has been uploaded.";
+                redirect("");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                redirect("", WRITE_ERROR, "upload failed: something happened along the way.");
             }
+        } else {
+            redirect("", WRITE_ERROR, "upload failed: directory unwritable");
         }
     }
+
     function delete_from_storage($un)
     {
-        print_r($_POST);
+        $failed = 0;
+        if(!empty($_POST['storage-marked']))
+        {
+            foreach ($_POST['storage-marked'] as $file)
+            {
+                $user_dir = STORAGE_PATH.$un.'\\';
+                $target_file = $user_dir.$file;
+                if (is_writable(realpath($user_dir)))
+                    unlink(realpath($target_file));
+                else
+                    $failed++;
+            }
+        }
+        if( $failed > 0) redirect("", WRITE_ERROR, "delete failed: $failed files could not be deleted");
+        else redirect("");
     }
 
     function create_host($un, $dir, $port)
     {
-
+        
     }
 
     /* helpers */
     function list_storage() {
         $data = array();
-        $files = array_slice(scandir(STORAGE_PATH),2);
+        $files = array_slice(scandir(STORAGE_PATH.$_SESSION['username']),2);
         foreach($files as $file)
         {
             array_push(
                 $data,
                 array(
-                    $file, 
-                    filesize(STORAGE_PATH.$file),
-                    pathinfo((STORAGE_PATH.$file), PATHINFO_EXTENSION)
+                    $file,
+                    filesize(STORAGE_PATH.$_SESSION['username'].'\\'.$file),
+                    pathinfo((STORAGE_PATH.$_SESSION['username'].'\\'.$file), PATHINFO_EXTENSION)
                 )
             );
         }
         return $data;
     }
 
-    function grab_from_storage($un)
+    function dl_from_storage($un)
     {
         
     }
 
     function list_hosts() {
-        return array_diff(scandir(HOSTS_PATH), array('.', '..'));
+        $data = array();
+        $files = array_slice(scandir(HOSTS_PATH.$_SESSION['username']),2);
+        foreach($files as $file)
+        {
+            array_push(
+                $data,
+                array(
+                    $file, 
+                    -1,
+                    "temp",
+                    "temp"
+                )
+            );
+        }
+        return $data;
     }
 
 ?>

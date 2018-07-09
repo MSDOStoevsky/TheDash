@@ -21,20 +21,29 @@
             <form action="login.php" method="POST">
                 <fieldset>
                     <label for="un-field">Username</label>
-                    <input placeholder="e.g., BigBoy5" name="un-field" id="un-field" type="text" required>
+                    <input placeholder="e.g., BigBoy5" 
+                    name="un-field" 
+                    id="un-field" 
+                    type="text" 
+                    value="
+                    <?php 
+                    if(isset($_COOKIE['USERNAME']))
+                        echo $_COOKIE['USERNAME'];
+                    ?>"
+                    required>
                     <label for="un-field">Password</label>
                     <input  id="pw-field" name="pw-field" type="password" required>
                     <div class="float-right">
-                    <input id="remember-field" type="checkbox">
-                    <label class="label-inline" name="remember-field" for="remember-field">Remember me</label>
+                    <input id="remember-field" type="checkbox" name="remember-field">
+                    <label class="label-inline"  for="remember-field">Remember me</label>
                     </div>
                     <input class="button-primary" value="Log in" type="submit">
                 </fieldset>
             </form>
                 <?php 
-                    if($_SESSION['error'] == USERNAME_ERROR) echo "<strong>Error!</strong> That user does not exist.";
-                    else if($_SESSION['error'] == PASSWORD_ERROR) echo "<strong>Error!</strong> Incorrect username or password.";
-                    else if($_SESSION['error'] == AUTH_ERROR)     echo "<strong>Error!</strong> You need to be logged in.";
+                    if($_SESSION['error'] == USERNAME_ERROR)      echo $_SESSION['error_msg'];
+                    else if($_SESSION['error'] == PASSWORD_ERROR) echo $_SESSION['error_msg'];
+                    else if($_SESSION['error'] == AUTH_ERROR)     echo $_SESSION['error_msg'];
                 ?>
             </div>
         </div>

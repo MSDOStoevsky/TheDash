@@ -1,12 +1,23 @@
+:root {
+    --primary-color: #ff0000;
+    --primary-bg-color: inherit;
+    --primary-nav-color: #f4f5f6;
+    --primary-text-color: #606c76;
+
+}
+body{
+    color: var(--primary-text-color);
+    background-color: var(--primary-bg-color);
+}
 a, .button.button-outline, button.button-outline, button.button-clear, .button.button-clear{ 
-    color: #ff0000;
+    color: var(--primary-color);
 }
 .button, button, input[type="button"], input[type="reset"], input[type="submit"] {
-    border-color: #ff0000;
-    background-color: #ff0000;
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
 }
 .button.button-outline, button.button-outline, input[type="button"].button-outline, input[type="reset"].button-outline, input[type="submit"].button-outline {
-    color: #ff0000;
+    color: var(--primary-color);
 }
 input[type="email"]:focus,
 input[type="number"]:focus,
@@ -24,7 +35,7 @@ input[type="datetime-local"]:focus,
 input:not([type]):focus,
 textarea:focus,
 select:focus {
-    border-color: #ff0000;
+    border-color: var(--primary-color);
 }
 .wrapper {
     display:block;
@@ -40,11 +51,11 @@ select:focus {
     padding-top:7.5rem
 }
 .header {
-    background-color:#f4f5f6;
+    background-color: var(--primary-nav-color);
     padding-top:1rem
 }
 .navigation {
-    background: #f4f5f6;
+    background: var(--primary-nav-color);
     border-bottom: .1rem solid #d1d1d1;
     display: block;
     height: 5.2rem;
@@ -164,3 +175,7 @@ select:focus {
     justify-content: space-evenly;
 }
 
+.error-message{
+    font-size:0.8em;
+    color: var(--primary-color);
+}
